@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Ferretería Online</title>
+    <link rel="stylesheet" href="admin-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-header-container">
+            <div class="admin-logo">
+                <img src="img/logo.png" alt="Ferretería Online" id="admin-logo-img">
+                <h1>Panel de Administración</h1>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#productos"><i class="fas fa-box"></i> Productos</a></li>
+                    <li><a href="#categorias"><i class="fas fa-tags"></i> Categorías</a></li>
+                    <li><a href="#configuracion"><i class="fas fa-cog"></i> Configuración</a></li>
+                </ul>
+            </nav>
+            <div class="admin-user">
+                <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <section id="dashboard" class="admin-section active">
+            <div class="section-header">
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                <p>Resumen y estadísticas de la tienda</p>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #FFC107;">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalProducts">0</h3>
+                        <p>Productos</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #FF9800;">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalCategories">0</h3>
+                        <p>Categorías</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #F44336;">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalOrders">0</h3>
+                        <p>Pedidos hoy</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #FFC107;">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalRevenue">$0</h3>
+                        <p>Ingresos hoy</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <h3>Acciones rápidas</h3>
+                <div class="actions-grid">
+                    <button class="action-btn" data-action="add-product">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Agregar producto</span>
+                    </button>
+                    <button class="action-btn" data-action="add-category">
+                        <i class="fas fa-tag"></i>
+                        <span>Agregar categoría</span>
+                    </button>
+                    <button class="action-btn" data-action="change-logo">
+                        <i class="fas fa-image"></i>
+                        <span>Cambiar logo</span>
+                    </button>
+                    <button class="action-btn" data-action="view-orders">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Ver pedidos</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="recent-products">
+                <h3>Productos recientes</h3>
+                <div class="table-container">
+                    <table id="recentProductsTable">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio base</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="productos" class="admin-section">
+            <div class="section-header">
+                <h2><i class="fas fa-box"></i> Gestión de Productos</h2>
+                <p>Administra los productos de la tienda</p>
+            </div>
+            
+            <div class="section-actions">
+                <button class="btn-primary" id="addProductBtn">
+                    <i class="fas fa-plus"></i> Agregar producto
+                </button>
+                <div class="search-box">
+                    <input type="text" id="productSearch" placeholder="Buscar productos...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table id="productsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio base</th>
+                            <th>Stock</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="categorias" class="admin-section">
+            <div class="section-header">
+                <h2><i class="fas fa-tags"></i> Gestión de Categorías</h2>
+                <p>Administra las categorías de productos</p>
+            </div>
+            
+            <div class="section-actions">
+                <button class="btn-primary" id="addCategoryBtn">
+                    <i class="fas fa-plus"></i> Agregar categoría
+                </button>
+            </div>
+            
+            <div class="categories-grid" id="categoriesGrid">
+            </div>
+        </section>
+
+        <section id="configuracion" class="admin-section">
+            <div class="section-header">
+                <h2><i class="fas fa-cog"></i> Configuración</h2>
+                <p>Configura los parámetros de la tienda</p>
+            </div>
+            
+            <div class="settings-container">
+                <div class="settings-card">
+                    <h3><i class="fas fa-image"></i> Logo de la tienda</h3>
+                    <div class="logo-preview">
+                        <img src="img/logo.png" alt="Logo actual" id="currentLogo">
+                    </div>
+                    <div class="logo-upload">
+                        <label for="logoUpload" class="upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Subir nuevo logo</span>
+                        </label>
+                        <input type="file" id="logoUpload" accept="image/*" style="display: none;">
+                        <p class="upload-info">Formatos permitidos: JPG, PNG, GIF. Tamaño máximo: 2MB</p>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h3><i class="fas fa-dollar-sign"></i> Precios por volumen</h3>
+                    <p>Configura los 5 precios diferentes para cada producto según el monto total.</p>
+                    
+                    <div class="price-tiers-config">
+                        <div class="tier-config">
+                            <label for="tier1">Menos de 200 USD</label>
+                            <div class="tier-value">
+                                <span>Precio base</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tier-config">
+                            <label for="tier2">Más de 200 USD</label>
+                            <div class="tier-input">
+                                <span>Precio 2</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tier-config">
+                            <label for="tier3">Más de 500 USD</label>
+                            <div class="tier-input">
+                                <span>Precio 3</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tier-config">
+                            <label for="tier4">Más de 1000 USD</label>
+                            <div class="tier-input">
+                                <span>Precio 4</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tier-config">
+                            <label for="tier5">Más de 3000 USD</label>
+                            <div class="tier-input">
+                                <span>Precio 5</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="tier-info"><i class="fas fa-info-circle"></i> Los precios se configuran individualmente en cada producto.</p>
+                </div>
+                
+                <div class="settings-card">
+                    <h3><i class="fas fa-shopping-cart"></i> Configuración de WhatsApp</h3>
+                    <p>Número de WhatsApp para recibir pedidos:</p>
+                    <div class="whatsapp-config">
+                        <div class="input-group">
+                            <span class="input-prefix">+</span>
+                            <input type="text" id="whatsappNumber" value="1 555 1234567" placeholder="Código país y número">
+                        </div>
+                        <button class="btn-primary" id="saveWhatsapp">
+                            <i class="fas fa-save"></i> Guardar número
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalProductTitle">Agregar nuevo producto</h3>
+                <button class="close-modal" id="closeProductModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="productForm">
+                    <input type="hidden" id="productId">
+                    
+                    <div class="form-group">
+                        <label for="productName">Nombre del producto *</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productDescription">Descripción *</label>
+                        <textarea id="productDescription" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productCategory">Categoría *</label>
+                            <select id="productCategory" required>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productStock">Stock disponible *</label>
+                            <input type="number" id="productStock" min="0" value="10" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productImage">Imagen del producto</label>
+                        <div class="image-upload">
+                            <div class="image-preview" id="imagePreview">
+                                <img id="previewImage" src="" alt="Vista previa">
+                                <div class="no-image" id="noImagePreview">
+                                    <i class="fas fa-image"></i>
+                                    <span>No hay imagen seleccionada</span>
+                                </div>
+                            </div>
+                            <label for="productImageUpload" class="upload-btn">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Seleccionar imagen</span>
+                            </label>
+                            <input type="file" id="productImageUpload" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <div class="price-section">
+                        <h4>Precios por volumen (USD)</h4>
+                        <div class="price-grid">
+                            <div class="price-input">
+                                <label for="basePrice">Menos de 200 USD</label>
+                                <input type="number" id="basePrice" min="0" step="0.01" required>
+                            </div>
+                            <div class="price-input">
+                                <label for="priceTier1">+200 USD</label>
+                                <input type="number" id="priceTier1" min="0" step="0.01" required>
+                            </div>
+                            <div class="price-input">
+                                <label for="priceTier2">+500 USD</label>
+                                <input type="number" id="priceTier2" min="0" step="0.01" required>
+                            </div>
+                            <div class="price-input">
+                                <label for="priceTier3">+1000 USD</label>
+                                <input type="number" id="priceTier3" min="0" step="0.01" required>
+                            </div>
+                            <div class="price-input">
+                                <label for="priceTier4">+3000 USD</label>
+                                <input type="number" id="priceTier4" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelProduct">Cancelar</button>
+                <button class="btn-primary" id="saveProduct">Guardar producto</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="categoryModal">
+        <div class="modal-content small-modal">
+            <div class="modal-header">
+                <h3 id="modalCategoryTitle">Agregar nueva categoría</h3>
+                <button class="close-modal" id="closeCategoryModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="categoryForm">
+                    <input type="hidden" id="categoryId">
+                    
+                    <div class="form-group">
+                        <label for="categoryName">Nombre de la categoría *</label>
+                        <input type="text" id="categoryName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categoryDescription">Descripción</label>
+                        <textarea id="categoryDescription" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelCategory">Cancelar</button>
+                <button class="btn-primary" id="saveCategory">Guardar categoría</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="confirmModal">
+        <div class="modal-content small-modal">
+            <div class="modal-body">
+                <div class="confirm-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 id="confirmTitle">¿Está seguro?</h3>
+                <p id="confirmMessage">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelConfirm">Cancelar</button>
+                <button class="btn-danger" id="confirmAction">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="admin-footer">
+        <p>Merco Ventas Online - Panel de Administración &copy; 2026</p>
+        <p>Versión 1.0.0</p>
+    </footer>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>
