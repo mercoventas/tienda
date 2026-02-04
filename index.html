@@ -19,9 +19,11 @@
             
             <!-- Logo -->
             <div class="logo">
-                <img src="img/logo.png" alt="Ferretería Online" id="logo-img">
-                <h1></h1>
+                <img src="img/logo.jpeg" alt="Ferretería Online" id="logo-img" onerror="this.src='img/logo.jpeg'">
+                <h1>Ferretería Online</h1>
             </div>
+            
+           
             
             <!-- Carrito para móvil -->
             <div class="mobile-cart-toggle" id="mobileCartToggle">
@@ -44,15 +46,8 @@
             <i class="fas fa-search"></i>
         </div>
         <nav class="sidebar-nav">
-            <ul>
-                <li><a href="#" data-category="all">Todos los productos</a></li>
-                <li><a href="#" data-category="herramientas">Herramientas</a></li>
-                <li><a href="#" data-category="electricidad">Electricidad</a></li>
-                <li><a href="#" data-category="fontaneria">Fontanería</a></li>
-                <li><a href="#" data-category="pintura">Pintura</a></li>
-                <li><a href="#" data-category="jardin">Jardín</a></li>
-                <li><a href="#" data-category="seguridad">Seguridad</a></li>
-                <li><a href="#" data-category="materiales">Materiales de construcción</a></li>
+            <ul id="mobileCategoryList">
+                <!-- Categorías se cargarán dinámicamente -->
             </ul>
         </nav>
     </div>
@@ -70,28 +65,28 @@
             
             <div class="filters">
                 <h3>Categorías</h3>
-                <ul class="category-list">
-                    <li><a href="#" class="active" data-category="all">Todos los productos</a></li>
-                    <li><a href="#" data-category="herramientas">Herramientas</a></li>
-                    <li><a href="#" data-category="electricidad">Electricidad</a></li>
-                    <li><a href="#" data-category="fontaneria">Fontanería</a></li>
-                    <li><a href="#" data-category="pintura">Pintura</a></li>
-                    <li><a href="#" data-category="jardin">Jardín</a></li>
-                    <li><a href="#" data-category="seguridad">Seguridad</a></li>
-                    <li><a href="#" data-category="materiales">Materiales de construcción</a></li>
+                <ul class="category-list" id="desktopCategoryList">
+                    <!-- Categorías se cargarán dinámicamente -->
                 </ul>
             </div>
+            
+           
         </aside>
 
         <!-- Columna 2: Productos -->
         <section class="products-section">
             <div class="section-header">
                 <h2 id="categoryTitle">Todos los productos</h2>
-                <div class="products-count" id="productsCount">10 productos</div>
+                <div class="products-count" id="productsCount">0 productos</div>
             </div>
             
             <div class="products-list" id="productsList">
                 <!-- Los productos se cargarán aquí dinámicamente -->
+                <div class="no-products">
+                    <i class="fas fa-box-open"></i>
+                    <h3>No hay productos disponibles</h3>
+                    <p>Agrega productos desde el panel de administración</p>
+                </div>
             </div>
         </section>
 
@@ -113,6 +108,10 @@
             </div>
             
             <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">0.00 USD</span>
+                </div>
                 <div class="summary-row total">
                     <span>Total a pagar</span>
                     <span id="total">0.00 USD</span>
@@ -123,10 +122,10 @@
                     <h4>Precios por volumen:</h4>
                     <div class="tier-info">
                         <p>Menos de 200 USD: <span class="tier-price" id="tier1">Precio base</span></p>
-                        <p>Más de 200 USD: <span class="tier-price" id="tier2">Nuevo reducido</span></p>
-                        <p>Más de 500 USD: <span class="tier-price" id="tier3">Con descuento</span></p>
+                        <p>Más de 200 USD: <span class="tier-price" id="tier2">Precio reducido</span></p>
+                        <p>Más de 500 USD: <span class="tier-price" id="tier3">Precio mayorista</span></p>
                         <p>Más de 1000 USD: <span class="tier-price" id="tier4">Precio especial</span></p>
-                        <p>Más de 3000 USD: <span class="tier-price" id="tier5">Un Super precio</span></p>
+                        <p>Más de 3000 USD: <span class="tier-price" id="tier5">Precio corporativo</span></p>
                     </div>
                     <div class="current-tier">
                         Actual: <strong id="currentTier">Precio base</strong>
@@ -135,6 +134,9 @@
                 
                 <button class="checkout-btn" id="checkoutBtn">
                     <i class="fab fa-whatsapp"></i> Enviar pedido al WhatsApp
+                </button>
+                <button class="clear-cart-btn" id="clearCartBtn">
+                    <i class="fas fa-trash-alt"></i> Vaciar carrito
                 </button>
             </div>
         </aside>
@@ -159,6 +161,10 @@
             </div>
             
             <div class="mobile-cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="mobileSubtotal">0.00 USD</span>
+                </div>
                 <div class="summary-row total">
                     <span>Total a pagar</span>
                     <span id="mobileTotal">0.00 USD</span>
@@ -174,6 +180,9 @@
                 <button class="checkout-btn" id="mobileCheckoutBtn">
                     <i class="fab fa-whatsapp"></i> Enviar pedido al WhatsApp
                 </button>
+                <button class="clear-cart-btn" id="mobileClearCartBtn">
+                    <i class="fas fa-trash-alt"></i> Vaciar carrito
+                </button>
             </div>
         </div>
     </div>
@@ -182,17 +191,16 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
-                <img src="img/logo.png" alt="Ferretería Online">
-                <p></p>
+
             </div>
             <div class="footer-info">
-               
-                <p><i class="fas fa-clock"></i> Lunes a Viernes: 8:30 AM - 5:30 PM </p>
+                <p><i class="fas fa-clock"></i> Lunes a Viernes: 8:30 AM - 5:30 PM</p>
                 <p><i class="fas fa-clock"></i> Sábado: 10:00 AM - 5:00 PM</p>
             </div>
         </div>
         <div class="footer-copyright">
-            <p>&copy; 2026 Ferretería Online. Siempre Contigo</p>
+            <p>&copy; 2026 Ferretería Online. Siempre contigo.</p>
+           
         </div>
     </footer>
 
